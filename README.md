@@ -637,4 +637,527 @@ Methods can be given as PUBLIC
 
 There is a method / variables which should be accessed by only subclass then make it as PROTECTED
 
+**PACKAGES:**
 
+Move files common functionality files into a package 
+Call the relevant file in main method using
+
+import packageName.className;
+
+Inbuilt class we use in java is a package
+Example
+ArrayList, System.out.println-> System is a package
+
+Mvnrepository contains libraries
+
+How to create a unique package name
+	1.  Reversing the domain
+	2. Example com.google.calculator
+
+**FINAL KEYWORD**
+
+Can be used with a 
+Variable
+Method
+Class
+
+Final keyword works same as const variable
+
+We can't re assign the value of a variable
+
+
+
+Anyone can inherits the properties or methods from any other class. To stop this make the class as final (Basically stopping the inheritance)
+
+If I don’t want to override the method then make it final
+
+**POLYMORPHISM**
+--- It works with only inheritance
+
+Many behaviors 
+
+Two types of ploy morphism
+
+Compile time polymorphism (early binding)
+	Behavior is defined at compile time then it is compile time
+	Example : over-loading
+Run time Polymorphism (Late binding)
+	When the behavior is compiled at run time then it late binding
+	Example: Over riding
+	
+	
+
+DYNAMIC METHOD DISPATCH:
+
+Irrespective of what type of object we has It always depends what object we have
+
+Run time polymorphism example
+
+```java
+package JavaBasics.inheritance;
+
+ class A{
+	public void show() {
+		System.out.println("In A show ");
+	}
+}
+
+ class B extends A{
+	public void show() {
+		System.out.println("In B Show");
+	}
+}
+
+ class C extends A{
+	public void show() {
+		System.out.println("In C Show");
+	}
+}
+
+public class mainMethod {	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		//A is the reference class 
+		A obj = new A();
+		obj.show(); //In A Show;
+		
+		obj = new B();
+		obj.show(); //In B Show;
+		
+		obj = new C();
+		obj.show(); //In C Show
+
+		//REFERENCE OF A AND OBJECT OF B - It is possible to have this kind of objects
+		   A obj = new B();
+			Obj.show();
+		
+	}
+
+}
+```
+
+
+PACKAGES:
+
+Move files common functionality files into a package 
+Call the relevant file in main method using
+
+import packageName.className;
+
+Inbuilt class we use in java is a package
+Example
+ArrayList, System.out.println-> System is a package
+
+Mvnrepository contains libraries
+
+How to create a unique package name
+	1.  Reversing the domain
+	2. Example com.google.calculator
+
+Final keyword
+
+Can be used with a 
+Variable
+Method
+Class
+
+Final keyword works same as const variable
+
+We can't re assign the value of a variable
+
+
+
+Anyone can inherits the properties or methods from any other class. To stop this make the class as final (Basically stopping the inheritance)
+
+If I don’t want to override the method then make it final
+
+**OBJECTS AND METHODS USAGE:**
+Every time I call the object in behind the scenes it returns as obj.toString() - which returns a string
+
+HASHCODE
+
+```java
+package JavaBasics.inheritance;
+
+import java.util.Objects;
+
+class Laptop{
+	int price;
+	String model;
+	
+	public String toString() {
+		return "model : "+model+" and price is "+price; 
+	}
+	//Generated from source code conversion of toString and hashcode
+	@Override
+	public int hashCode() {
+		return Objects.hash(model, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Laptop other = (Laptop) obj;
+		return Objects.equals(model, other.model) && price == other.price;
+	}
+	
+	
+}
+
+public class objectMethods {
+
+	public static void main (String[]args) {
+		
+		Laptop obj = new Laptop();
+		obj.model = "MACBook Air";
+	    obj.price = 1000;
+	    //the below toString method overrides the super class which is a inbuilt method.
+	    System.out.println(obj.toString());
+	    
+	    Laptop obj2 = new Laptop();
+	    obj2.model = "MacBook Air";
+	    obj2.price = 2000;
+	    System.out.println(obj.equals(obj2));
+	}
+}
+```
+**TypeCasting**
+
+UP Casting and Down Casting:
+
+Double d = 4.5;
+Int I = (double)d;
+
+
+UpCasting:
+A-> super class
+B-> subclass
+
+A obj = new B();
+obj.show1();
+
+DownCasting:
+B obj1 = (A)obj;
+obj1.show2()
+
+```java
+package JavaBasics.inheritance;
+
+class A{
+	public void show1() {
+		System.out.println("In A Show");
+	}
+}
+
+class B extends A{
+	public void show2() {
+		System.out.println("In B Show");
+	}
+}
+public class Typecasting {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//upCasting - has Reference of superclass but subclass of object
+		A obj = new B();
+		obj.show1();
+		
+		//Downcasting - has reference of subclass and typecasting of obj
+		B obj1 = (B) obj;
+		obj1.show2();
+		
+	}
+
+}
+```
+
+
+
+abstract class Car{ //ABSTRACT CLASS
+	//method declaration using abstract- If i don't now what functionality this drive method contains then declare it
+	public abstract void drive();
+	public abstract void fly();
+	
+	public void playMusic() {
+		System.out.println("Play music for the car");
+	}
+}
+
+abstract class BMW extends Car{ //ABSTRACT CLASS
+
+	@Override
+	public void drive() {
+		System.out.println("Drive from BMW");
+		
+	}
+	
+}
+
+class FinalCar extends BMW{   //CONCERETE CLASS
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		System.out.println("Fly from final car");
+	}
+	
+}
+
+
+public class AbstractKeyword {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//OBJECT Reference is from parent class but the object is from concerete class
+		Car obj = new FinalCar();
+		obj.playMusic();
+		obj.drive();
+		obj.fly();
+	}
+
+}
+
+
+***Wrapper classes:***
+
+int -> Integer
+double -> Double
+
+Boxing
+Taking a primitive value and storing it in a wrapper object, it automatically converts to wrapper is called autoboxing
+
+
+
+Auto - unboxing
+
+Str to Integer - Integer.parseInt(str)
+```java
+package JavaBasics.inheritance;
+
+public class WrapperClasses {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int num1 = 7;
+		
+		Integer num2 = num1; //auto boxing
+		System.out.println(num2);
+		
+		int num3 = num2; //auto unboxing
+		System.out.println(num3);
+		
+		String str = "35";
+		int stringToNumber = Integer.parseInt(str);
+		System.out.println(stringToNumber);
+		
+	}
+
+}
+```
+
+**Abstract keyword:**
+
+IF we want to declare a method then use abstract keywords.
+******WE can't create a object of a abstract class. But can create a reference of obj 
+
+Is it compulsory to have a abstract method in a abstract class??
+
+A Abstract method should have a abstract class//
+But a abstract class can either or can have abstract method or public methods..
+
+```java
+package JavaBasics.inheritance;
+
+
+abstract class Car{ //ABSTRACT CLASS
+	//method declaration using abstract- If i don't now what functionality this drive method contains then declare it
+	public abstract void drive();
+	public abstract void fly();
+	
+	public void playMusic() {
+		System.out.println("Play music for the car");
+	}
+}
+
+abstract class BMW extends Car{ //ABSTRACT CLASS
+
+	@Override
+	public void drive() {
+		System.out.println("Drive from BMW");
+		
+	}
+	
+}
+
+class FinalCar extends BMW{   //CONCERETE CLASS
+	@Override
+	public void fly() {
+		// TODO Auto-generated method stub
+		System.out.println("Fly from final car");
+	}
+	
+}
+
+
+public class AbstractKeyword {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//OBJECT Reference is from parent class but the object is from concerete class
+		Car obj = new FinalCar();
+		obj.playMusic();
+		obj.drive();
+		obj.fly();
+	}
+
+}
+```
+
+**INNER CLASS:**
+
+Only inner class can have a static keyword.
+
+```java
+package JavaBasics.inheritance;
+
+class Parent{
+	int price;
+	public void show() {
+		System.out.println("A class");
+		
+	}
+	
+	class B{
+		public void show2() {
+			System.out.println("Inner class");
+		}
+		
+	}
+}
+
+public class InnerClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		//Creating object reference of A
+		
+		Parent obj = new Parent();
+		obj.show();
+		
+		//to create object reference of B which is inner class we need parent class as well.
+		
+		// B obj1 = new B(); // will throw an error because for inner class we cannot directly create an object
+		
+		Parent.B obj1 = obj.new B(); //Creating the object based on parent class which is obj;
+		obj1.show2();
+		
+		
+		
+	}
+
+}
+```
+
+//To avoid creating the reference of parent class then make the inner class to static
+
+```java
+package JavaBasics.inheritance;
+
+class Parent{
+	int price;
+	public void show() {
+		System.out.println("A class");
+		
+	}
+	
+	static class SubClass{
+		public void show2() {
+			System.out.println("Inner class");
+		}
+		
+	}
+}
+
+public class InnerClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		//Creating object reference of A
+		
+		Parent obj = new Parent();
+		obj.show();
+		
+		
+		SubClass obj1 = new SubClass(); //Creating the object directly because inner class is static
+		obj1.show2();
+		
+	}
+
+}
+```
+
+
+//ANONYMOUS INNER CLASS
+```java
+package JavaBasics.inheritance;
+
+
+class ParentClass{
+	public void show() {
+		System.out.println("In parent class");
+	}
+}
+
+public class AnonymousClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//creating a anonymous class beside the object declaration
+		ParentClass obj = new ParentClass(){
+			public void show() {
+				System.out.println("In Anonymous class of same method ");
+			}
+		};
+		
+		obj.show();
+		
+	}
+
+}
+```
+
+Abstract class and anonymous class
+
+```java
+package JavaBasics.inheritance;
+
+abstract class parentClass{
+	public abstract void show();
+}
+
+public class AnonymousClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub		
+		//We are creating an object for the anonymous class with reference of abstract class...
+		parentClass obj = new parentClass() {
+			public void show() {
+				System.out.println("In Anonymous abstract class of same method ");
+			}
+		};
+		obj.show();
+	}
+
+}
+```
