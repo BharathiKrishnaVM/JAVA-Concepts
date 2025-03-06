@@ -1161,3 +1161,544 @@ public class AnonymousClass {
 
 }
 ```
+**INTERFACES:**
+
+Using in class
+
+Public class sampleClass implements interface_name{}
+
+Interface to interface - use extends
+
+
+By default the variables in interface are final and static.
+By default the methods in interface is a public abstract
+
+Interfaces don't have memory for object
+
+```java
+package JavaBasics.interface_;
+
+//-----first way
+/*
+class Laptop extends Computer{
+	public void devlop() {
+		System.out.println("Develop an app in laptop");
+	}
+}
+
+class Desktop extends Computer {
+	public void devlop() {
+		System.out.println("Develop an app in Desktop");
+	}
+}
+
+abstract class Computer{
+	public abstract void devlop();
+}
+*/
+```
+
+```java
+//Make a interface instead of abstract class
+class Laptop implements Computer{
+	public void devlop() {
+		System.out.println("Develop an app in laptop");
+	}
+}
+
+class Desktop implements Computer {
+	public void devlop() {
+		System.out.println("Develop an app in Desktop");
+	}
+}
+interface Computer{
+	 void devlop();
+}
+
+public class interfaceClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Laptop obj1 = new Laptop();
+		obj1.devlop();
+		
+		Computer obj2 = new Desktop();
+		obj2.devlop();
+		//if i use reference of abstract computer ---first way solution
+		/*
+		Computer obj2 = new Laptop();
+		obj2.devlop();
+		*/
+	}
+
+}
+```
+```java
+// More on interface variables
+
+package JavaBasics.interface_;
+
+interface Laptop1{
+	public static final String brand = "Lenovo";
+	public static final int price = 25000;
+	void specifications();
+}
+
+class BuyNewLaptop implements Laptop1{
+
+	@Override
+	public void specifications() {
+		// TODO Auto-generated method stub
+		System.out.println("I want to buy Dell laptop with 16gb ram and 8gb ssd cards");
+	}
+	
+}
+
+public class InterfaceVariables {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Laptop1 obj;
+		obj = new BuyNewLaptop();
+		Laptop1.brand="DEll";
+		Laptop1.price = 30;
+		//throws an error for final static variables
+		obj.specifications();
+		
+	}
+
+}
+```
+A class can have more than one interface 
+
+**Multiple interfaces**
+```java
+package JavaBasics.interface_;
+
+interface X{
+	void employee();
+	void sample();
+}
+
+interface Y extends X{
+	void getDetails();
+}
+
+class Sample implements Y{
+
+	@Override
+	public void employee() {
+		// TODO Auto-generated method stub
+		System.out.println("GET EMPLOYEE");
+	}
+
+	@Override
+	public void sample() {
+		// TODO Auto-generated method stub
+		System.out.println("GET SAMPLE");
+	}
+
+	@Override
+	public void getDetails() {
+		// TODO Auto-generated method stub
+		System.out.println("GET DETAILS");
+	}
+	
+}
+
+public class InheritanceInterface {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Sample obj = new Sample();
+		obj.employee();
+		obj.sample();
+		obj.getDetails();
+
+	}
+
+}
+```
+
+**ENUM:**
+
+Constants which we create:
+
+We cannot extend enum in class
+
+By default ENUM extends a class called ENUM java.lang.enum
+
+
+```java
+package JavaBasics.interface_;
+
+enum Status{
+	Running, Failed, Success, Pending;
+}
+
+// ENUM is class which contains objects array
+public class EnumClass {
+
+	public static void main(String[]args) {
+		
+		Status s = Status.Running;
+		
+		switch(s) {
+		case Running:
+			System.out.println("All good");
+			break;
+		case Pending:
+			System.out.println("Please wait");
+			break;
+		case Success:
+			System.out.println("Done");
+			break;
+		case Failed:
+			System.out.println("Try again");
+			break;
+			
+		}
+	}
+}
+```
+
+**ENUM MORE INFO**
+
+```java
+package JavaBasics.interface_;
+
+enum LaptopPrices{
+	MacBook(2500), Dell(1500), Lenovo(1000), HP(2000), ACER(960), DEFAULTPRICE();
+	
+	private int price;
+
+	//default constructor of laptop which accepts price 
+	private LaptopPrices() {
+		// TODO Auto-generated constructor stub
+		price = 800;
+//		System.out.println("In constructor of Enum class ");
+	}
+	//parameterised constructor
+	private LaptopPrices(int price) {
+		this.price = price;
+//		System.out.println("in laptop "+this.name());
+	}
+	
+	
+	public int getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+}
+
+public class EnumMoreInfo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+//		LaptopPrices p = LaptopPrices.ACER;
+//		System.out.println(p+" "+ p.getPrice());
+		
+		for(LaptopPrices p1 : LaptopPrices.values()) {
+			System.out.println("Laptop is "+ p1+ " : "+p1.getPrice());
+		}
+	}
+
+}
+```
+
+**Functional Interface**
+In Interface we can only declare methods all the methods are public and abstract
+
+Different types of interfaces
+
+Normal Interface - which has two or more methods
+Functional Interface or SAM - Single Abstract method ***Important
+
+
+Marker interface: which has no methods
+Interface Abc{}
+
+
+Serialization and Deserialisation
+
+We can use lamda expressions only with functional interfaces
+```java
+()-> {
+Public void show(){
+System.out.println("In show");
+}
+}
+
+A obj = new A(){
+Public void show(){
+System.out.println("In show");
+}
+}
+```
+The above code replaces with (I,j)-> i+j
+
+LAMDA EXPRESSIONS ONLY Works with Functional Interface
+
+```java
+package JavaBasics.interface_;
+
+@FunctionalInterface
+interface addNumbers {
+	int add(int i, int j);
+}
+public class FunctionalInterface_1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		addNumbers obj = (i, j) -> i+j; //lamda expressions
+		System.out.println(obj.add(5,4));
+		
+	}
+
+}
+```
+
+**Exceptions:**
+
+Compile time errors - > syntax errors 
+Run time errors -> exception handling
+Logical Errors
+
+Exception:
+
+```java
+package exception;
+
+
+public class ExceptionHandling {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int i = 4; // change the value to see the exception
+		int j = 18;
+		try {
+			j=	j/i;
+		}
+		catch(Exception e){
+			System.out.printf("Exception Handling ", e);
+		}
+		System.out.println(j);
+	 
+	}
+
+}
+```
+
+Multiple catch blocks can be written to catch the expressions
+Exception is a parent class it can handle all the classes
+
+Object
+|
+Throwable is are two types error and exception
+
+Errors example
+
+ThreadDeath
+
+IOError
+
+VirtualMachineError
+
+OutOfMemory
+
+Exceptions
+
+Run time exception are called as unchecked exceptions
+
+	ArrayOutOfBoundException
+ 
+	Arithematic
+ 
+	NullPointer
+ 
+SQL Exception are called as checked exceptions
+
+IO Execution
+
+**THREADS**
+
+Threads: Multi tasking can be done using threads
+
+In same task we can have multiple threads that has to perform the tasks
+
+How to make normal objects into threads 
+Then extends the class called thread
+
+Behind the scenes it will have schedulers
+
+Range of priorities goes from 1-10 1(highest), 10-least
+
+```java
+package threads;
+
+
+class A extends Thread{
+	public void run() {
+		for(int i=1; i<=100; i++) {
+			System.out.println("Hello");
+		}
+	}
+}
+
+class B extends Thread{
+	public void run() {
+		for(int i=1; i<=100; i++) {
+			System.out.println("Hi");
+		}
+	}
+}
+
+public class ThreadsExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		A obj = new A();
+		B obj1 = new B();
+		System.out.println(obj.getPriority());
+		obj.start();
+		obj1.start();
+		
+
+	}
+
+}
+```
+Thread Safe: Only one thread can work with the one method.
+
+Thread Status
+
+1. New
+2. Runnable
+3. Running
+4. Waiting
+5. Dead
+
+
+**Collections**
+
+Collections API: Concept 
+We can work with all types of data structures using inbuilt classes.
+
+
+Collection : it is an interface
+Collections: It is a Class
+
+LIF O - Stack
+FIFO - Queue
+
+Collection 
+
+List -> ArrayList, LinkedList
+Queue -> DeQueue
+Set -> HashSet, LinkedHashSet
+ArrayList:
+We can directly print the Arraylist no need of for loop
+
+We can use generics to get the values from Collections
+<String>
+Why type is Important?
+
+ArrayList does'nt give index value
+
+To support index value use list
+Collection will have a unique value
+But list supports duplicate Values
+
+
+Set is a collection of unique value it doesn't contain index as well,
+TreeSet gives an sorted value of an array
+
+Maps will have key value pairs
+Map is an interface which has HashMap as a class
+.put
+
+Keys are unique it cannot be repeated
+Hashtable and Hashmap ->
+Hashtable is synchronised data 
+
+Comparable is a interface
+
+```java
+package CollectionInJava;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+public class CollectionInterface {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		Collection<Integer> col = new ArrayList<Integer>();
+		//List supports duplicate values
+		List <Integer> list = new ArrayList<Integer>();
+		
+		col.add(1); //the values are objects they are not strings
+		col.add(2);
+		col.add(1);
+		col.add(3);
+		
+		list.add(1);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		
+		
+		
+		for(Integer c: col) {
+			System.out.println(c);
+		}
+		System.out.println("List output values");
+		//get index value
+		System.out.println("Index value is "+list.get(2));
+		for(Integer li: list) {
+			System.out.println(li);
+		}
+		
+		//Instead of For loop use Iterator
+		Iterator<Integer> values = col.iterator();
+	
+		while(values.hasNext()) {
+			System.out.println("Values from Iterator "+values.next());
+		}
+		
+		
+		//Comparator Operator
+		
+		
+		List<String> names = new ArrayList<String>();
+		
+		names.add("Bharathi");
+		names.add("Vishnu");
+		names.add("Neekshita Sree");
+		names.add("Krishna");
+		names.add("Velu");
+		
+		//lamda expressions
+		Comparator<String> com = (str1, str2) -> str1.length() > str2.length() ?  1 :  -1;
+		
+		Collections.sort(names, com);
+		System.out.println(names);
+	}
+
+}
+```
+
